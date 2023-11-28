@@ -8,6 +8,8 @@ export default function Details(props) {
   const [data, setData] = useState();
   const {name} = props.route.params;
 
+  const navigation = useNavigation();
+
   useEffect(() => {
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${API_KEY}`,
