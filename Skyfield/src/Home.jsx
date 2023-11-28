@@ -66,7 +66,6 @@ import {
           </View>
   
           <View style={{paddingHorizontal: 20, marginTop: 100}}>
-            <Text style={{fontSize: 40, color: 'white'}}>Hello S.G.</Text>
             <Text style={{color: 'white', fontSize: 22, fontWeight: 'bold'}}>
               Search the city by the name
             </Text>
