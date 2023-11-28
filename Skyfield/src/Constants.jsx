@@ -1,0 +1,1 @@
+export const API_KEY = '37ec666449d12513d37ed62c2d78926d' // API key for openweathermap.org which is respective to your account
