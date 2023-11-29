@@ -1,7 +1,8 @@
 // Hourly.js
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, ImageBackground, Text, FlatList } from 'react-native';
+import { deviceHeight, deviceWidth } from './Dimensions';
 import { API_KEY } from './Constants';
 
 const Hourly = ({ route }) => {
@@ -27,7 +28,7 @@ const Hourly = ({ route }) => {
 
   const HourlyItem = ({ item }) => (
     <View>
-      <Text style={{ color: 'white', fontSize: 64 }}>
+      <Text style={{ color: 'white', fontSize: 24 }}>
         {(item.main.temp - 273).toFixed(2)}&deg; C
       </Text>
       <Text style={{ color: 'white', fontSize: 22, marginBottom: 16 }}>
@@ -39,6 +40,11 @@ const Hourly = ({ route }) => {
 
   return (
     <View>
+      <ImageBackground
+        source={require('../assets/images/image3.jpg')}
+        style={{ height: deviceHeight, width: deviceWidth }}
+        imageStyle={{ opacity: 0.6, backgroundColor: 'black' }}
+      >
       <Text style={{ color: 'white', fontSize: 24, textAlign: 'center' }}>
         Hourly Weather Details for {name}
       </Text>
@@ -48,6 +54,7 @@ const Hourly = ({ route }) => {
         keyExtractor={(item) => item.dt.toString()}
         renderItem={({ item }) => <HourlyItem item={item} />}
       />
+      </ImageBackground>
     </View>
   );
 };

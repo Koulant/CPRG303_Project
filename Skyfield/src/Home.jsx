@@ -87,7 +87,7 @@ import {
                 placeholderTextColor="white"
                 style={{paddingHorizontal: 10, color: 'white', fontSize: 16}}
               />
-              <TouchableOpacity onPress={() => props.navigation.navigate('Hourly', {name: city})}>
+              <TouchableOpacity onPress={() => props.navigation.navigate('Details', {name: city})}>
                 <Icon name="search" size={22} color="white" />
               </TouchableOpacity>
             </View>
