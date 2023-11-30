@@ -6,41 +6,41 @@ import { deviceHeight, deviceWidth } from './Dimensions';
 import { API_KEY } from './Constants';
 
 export default function Details(props) {
-  const [data, setData] = useState();
-  const { name } = props.route.params;
-  const navigation = useNavigation();
+const [data, setData] = useState();
+const { name } = props.route.params;
+const navigation = useNavigation();
 
-  useEffect(() => {
+useEffect(() => {
     fetchWeatherData();
-  }, []);
+}, []);
 
-  const fetchWeatherData = () => {
+const fetchWeatherData = () => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${API_KEY}`)
-      .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((err) => console.log(err));
-  };
+    .then((res) => res.json())
+    .then((res) => setData(res))
+    .catch((err) => console.log(err));
+};
 
-  const Data = ({ title, value }) => (
+const Data = ({ title, value }) => (
     <View
-      style={{
+    style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-      }}
+    }}
     >
-      <Text style={{ color: 'gray', fontSize: 22 }}>{title}</Text>
-      <Text style={{ color: 'white', fontSize: 22 }}>{value}</Text>
+    <Text style={{ color: 'gray', fontSize: 22 }}>{title}</Text>
+    <Text style={{ color: 'white', fontSize: 22 }}>{value}</Text>
     </View>
-  );
+);
 
-  const navigateToHourlyPage = () => {
+const navigateToHourlyPage = () => {
     navigation.navigate('Hourly', { name });
-  };
+};
 
-  const navigateToDailyPage = () => {
+const navigateToDailyPage = () => {
     navigation.navigate('Daily', { name });
-  };
+};
 
   return (
     <View>
@@ -64,11 +64,6 @@ export default function Details(props) {
               width: deviceWidth - 20,
             }}
           >
-            <Icon name="menu" size={46} color="white" />
-            <Image
-              source={require('../assets/images/user.jpg')}
-              style={{ height: 46, width: 46, borderRadius: 50 }}
-            />
           </View>
 
           {data ? (
@@ -77,18 +72,30 @@ export default function Details(props) {
                 flexDirection: 'column',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
-                height: deviceHeight - 100,
+                height: deviceHeight - 200,
               }}
             >
-              <View>
-                <Text style={{ color: 'white', fontSize: 40 }}>{name}</Text>
-                <Text style={{ fontSize: 22, color: 'white', textAlign: 'center' }}>
-                  {data['weather'][0]['main']}
-                </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ color: 'white', fontSize: 55 }}>{name}</Text>
               </View>
 
-              <Text style={{ color: 'white', fontSize: 64 }}>
-                {(data['main']['temp'] - 273).toFixed(2)}&deg; C
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {data.weather && data.weather[0].icon && (
+                  <Image
+                    source={{
+                      uri: `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`,
+                    }}
+                    style={{ width: 200, height: 200, marginLeft: 10 }}
+                  />
+                )}
+              </View>
+
+              <Text style={{ fontSize: 25, color: 'white', textAlign: 'center' }}>
+                {data['weather'][0]['main']}
+              </Text>
+
+              <Text style={{ color: 'white', fontSize: 55 }}>
+                {(data['main']['temp'] - 273).toFixed(2) + '°C'}
               </Text>
 
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -116,17 +123,15 @@ export default function Details(props) {
                 </TouchableOpacity>
               </View>
 
-              <View>
-                <Text style={{ color: 'white', fontSize: 22, marginBottom: 16 }}>
-                  Weather Details
-                </Text>
-                <View style={{ width: deviceWidth - 60 }}>
-                  <Data value={data['wind']['speed']} title="Wind" />
-                  <Data value={data['main']['pressure']} title="Pressure" />
-                  <Data value={`${data['main']['humidity']}%`} title="Humidity" />
-                  <Data value={data['visibility']} title="Visibility" />
-                </View>
-              </View>
+              <View style={{ width: deviceWidth - 60, marginTop: 10 }}>
+                <Data value={(data['main']['feels_like'] - 273).toFixed(2) + '°C'} title="Feels Like" />
+                <Data value={`${data['wind']['speed']} m/s`} title="Wind Speed" />
+                <Data value={data['main']['pressure']} title="Pressure" />
+                <Data value={`${data['main']['humidity']}%`} title="Humidity" />
+                <Data value={data['main']['uvi']} title="UV Index" />
+                <Data value={`${data['visibility']} meters`} title="Visibility" />
+            </View>
+
             </View>
           ) : null}
         </View>
