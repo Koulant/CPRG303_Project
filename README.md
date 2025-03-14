@@ -1,2 +1,2 @@
 # CPRG303_Project
-Skyfield Weather App (Android)
+Skyfield mobile weather app
