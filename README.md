@@ -1,2 +1,2 @@
-# CPRG303_Project
-Skyfield mobile weather app.
+# cprg303_project
+Skyfield mobile weather app made with React Native.
